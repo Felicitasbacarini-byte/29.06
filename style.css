@@ -3683,18 +3683,18 @@ img {
 
 
 
-/* Loader de 2 segundos antes de entrar al curso Advanced */
+/* Loader de 2 segundos entre páginas */
 .course-loader {
   position: fixed;
   inset: 0;
   z-index: 99999;
   display: grid;
   place-items: center;
-  background: #050505;
+  background: #000;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.25s ease, visibility 0.25s ease;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
 }
 
 .course-loader.is-active {
@@ -3707,8 +3707,25 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.2rem;
-  width: min(420px, 78vw);
+  justify-content: center;
+  gap: 1.15rem;
+  width: min(430px, 78vw);
+  transform: translateY(6px) scale(0.98);
+  opacity: 0;
+  transition: transform 0.32s ease, opacity 0.32s ease;
+}
+
+.course-loader.is-active .course-loader__content {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.course-loader__logo {
+  width: clamp(175px, 28vw, 330px);
+  height: auto;
+  display: block;
+  filter: invert(1) drop-shadow(0 0 18px rgba(247, 201, 72, 0.28));
+  image-rendering: pixelated;
 }
 
 .course-loader__brand {
@@ -3723,14 +3740,14 @@ img {
   font-family: var(--font-display);
   color: var(--color-yellow);
   font-size: 0.78rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
 .course-loader__bar {
-  width: 100%;
+  width: min(240px, 62vw);
   height: 3px;
-  background: rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.16);
   overflow: hidden;
 }
 
@@ -3749,6 +3766,10 @@ img {
 
 @keyframes courseLoading {
   to { transform: scaleX(1); }
+}
+
+body.is-page-transitioning {
+  overflow: hidden;
 }
 
 .sec06__card[data-advanced-card] {

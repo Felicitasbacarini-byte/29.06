@@ -497,37 +497,76 @@ function initSec08CardFlip() {
 }
 
 /* ====================================================================
-   LOADER — Click en curso Advanced
-   Muestra una pantalla de carga durante 2 segundos antes de entrar a
-   advanced.html. Funciona al tocar el botón o la tarjeta completa.
+   LOADER — transición entre páginas
+   Muestra una pantalla negra con la marca durante 2 segundos antes de
+   cambiar de página. No interrumpe los links internos tipo #cursos.
    ==================================================================== */
 function initCourseLoader() {
-  const loader = document.querySelector('[data-course-loader]');
-  const targets = document.querySelectorAll('[data-advanced-link], [data-advanced-card]');
-  if (!loader || !targets.length) return;
+  const loader = document.querySelector('[data-page-loader], [data-course-loader]');
+  if (!loader) return;
 
-  const goToAdvanced = (event) => {
-    const target = event.target.closest('[data-advanced-link], [data-advanced-card]');
-    if (!target) return;
+  let isLoading = false;
 
-    event.preventDefault();
+  function showLoaderAndGo(destination) {
+    if (!destination || isLoading) return;
+    isLoading = true;
+
     loader.setAttribute('aria-hidden', 'false');
     loader.classList.add('is-active');
+    document.body.classList.add('is-page-transitioning');
 
     window.setTimeout(() => {
-      window.location.href = 'advanced.html';
+      window.location.href = destination;
     }, 2000);
-  };
+  }
 
-  document.addEventListener('click', goToAdvanced);
+  function shouldUseLoader(link) {
+    if (!link) return false;
+    if (link.hasAttribute('data-no-loader')) return false;
+    if (link.target && link.target !== '_self') return false;
+
+    const href = link.getAttribute('href');
+    if (!href) return false;
+    if (href.startsWith('#')) return false;
+    if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return false;
+
+    const url = new URL(href, window.location.href);
+    if (url.origin !== window.location.origin) return false;
+
+    const isSamePath = url.pathname === window.location.pathname;
+    if (isSamePath && url.hash) return false;
+
+    const fileName = url.pathname.split('/').pop();
+    const isHtmlPage = fileName === '' || fileName.endsWith('.html');
+    return isHtmlPage;
+  }
+
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href]');
+
+    if (shouldUseLoader(link)) {
+      event.preventDefault();
+      showLoaderAndGo(link.href);
+      return;
+    }
+
+    const card = event.target.closest('[data-advanced-card]');
+    if (!card || event.target.closest('a[href]')) return;
+
+    event.preventDefault();
+    showLoaderAndGo(new URL('advanced.html', window.location.href).href);
+  });
 
   document.addEventListener('keydown', (event) => {
     const card = event.target.closest('[data-advanced-card]');
     if (!card) return;
     if (event.key !== 'Enter' && event.key !== ' ') return;
-    goToAdvanced(event);
+
+    event.preventDefault();
+    showLoaderAndGo(new URL('advanced.html', window.location.href).href);
   });
 }
+
 
 /* ====================================================================
    ADVANCED — Slider de coaches
