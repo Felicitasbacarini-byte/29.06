@@ -300,7 +300,8 @@ function initSec03Carousel() {
 function initSec07Wheel() {
   const wrap = document.querySelector('[data-sec07-wheel]');
   const slot = document.querySelector('[data-sec07-slot]');
-  if (!wrap || !slot) return;
+  const stage = document.querySelector('[data-sec07-stage]');
+  if (!wrap || !slot || !stage) return;
 
   const ASPECT_RATIO = 805 / 463;
 
@@ -315,16 +316,25 @@ function initSec07Wheel() {
   let slotDocTop = 0;
   let slotDocLeft = 0;
   let slotWidth = 0;
+  let stageDocTop = 0;
+  let stageHeight = 0;
 
   function measure() {
     const r = slot.getBoundingClientRect();
+    const stageRect = stage.getBoundingClientRect();
     slotDocTop = r.top + window.scrollY;
     slotDocLeft = r.left + window.scrollX;
     slotWidth = r.width;
+    stageDocTop = stageRect.top + window.scrollY;
+    stageHeight = stageRect.height;
   }
 
   function easeInOutCubic(t) {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
   }
 
   function update() {
@@ -340,7 +350,7 @@ function initSec07Wheel() {
     // del viewport (slotViewportTop llega a ~0) y avanza durante
     // TRAVEL_DISTANCE px de scroll adicional.
     const progressRaw = -slotViewportTop / TRAVEL_DISTANCE;
-    const progress = Math.min(Math.max(progressRaw, 0), 1);
+    const progress = clamp(progressRaw, 0, 1);
     const eased = easeInOutCubic(progress);
 
     // estado inicial fijo: tal como estaba el slot en el instante en
@@ -351,11 +361,11 @@ function initSec07Wheel() {
     const startLeft = slotDocLeft - window.scrollX;
     const startTop = 0; // por definición, el viaje arranca cuando el slot toca y=0
 
-    // estado final: centrado en pantalla, más grande
-    const endWidth = Math.min(vw * 0.42, 620);
+    // estado final: centrado en pantalla, un poco más contenido
+    const endWidth = Math.min(vw * 0.38, 560);
     const endHeight = endWidth / ASPECT_RATIO;
     const endLeft = (vw - endWidth) / 2;
-    const endTop = Math.max((vh - endHeight) / 2, vh * 0.14);
+    const endTop = Math.max((vh - endHeight) / 2, vh * 0.18);
 
     const currentWidth = startWidth + (endWidth - startWidth) * eased;
     const currentLeft = startLeft + (endLeft - startLeft) * eased;
@@ -365,16 +375,23 @@ function initSec07Wheel() {
     wrap.style.left = `${currentLeft}px`;
     wrap.style.top = `${currentTop}px`;
 
+    // salida: cuando la stage termina de pasar, el volante se desvanece
+    // para no invadir las secciones siguientes (cursos / circuitos / footer).
+    const stageBottomInViewport = stageDocTop + stageHeight - window.scrollY;
+    const fadeOutStart = endTop + endHeight * 0.75;
+    const exitProgress = clamp((fadeOutStart - stageBottomInViewport) / 180, 0, 1);
+    const visibility = 1 - exitProgress;
+
     // cross-fade simple: apenas progress > 0 (el slot real empezó a
     // salir de pantalla), el wrap fixed se hace visible y el slot
     // real se oculta, evitando un duplicado visual del volante.
-    const showFixed = progress > 0.001;
-    wrap.style.opacity = showFixed ? '1' : '0';
-    slot.style.opacity = showFixed ? '0' : '1';
+    const showFixed = progress > 0.001 && visibility > 0;
+    wrap.style.opacity = showFixed ? String(visibility) : '0';
+    slot.style.opacity = progress > 0.001 ? '0' : '1';
 
     // las zonas de hover solo responden una vez que el volante llegó
-    // (o casi) a su tamaño final
-    wrap.classList.toggle('is-interactive', progress > 0.92);
+    // (o casi) a su tamaño final y mientras siga visible.
+    wrap.classList.toggle('is-interactive', progress > 0.92 && visibility > 0.98);
 
     ticking = false;
   }
