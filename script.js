@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initSec05Typewriter();
   initSec03Carousel();
   initSec07Wheel();
+  initSec08HorizontalGallery();
+  initSec08CardFlip();
 });
 
 /* ====================================================================
@@ -444,4 +446,33 @@ function initSec08HorizontalGallery() {
   window.addEventListener('resize', update);
 }
 
-document.addEventListener('DOMContentLoaded', initSec08HorizontalGallery);
+/* =========================================================
+   SECCIÓN 08 — Flip de cards al pasar el mouse
+   Respaldo del :hover puro en CSS: algunos motores de
+   renderizado (sobre todo combinando perspective 3D con
+   scroll programático) no siempre refrescan el estado
+   :hover de forma confiable, así que togglemos una clase
+   explícita con los eventos mouseenter/mouseleave reales.
+   En touch (sin hover), el tap ya activa :focus/:active
+   del navegador; para mayor seguridad, también togglemos
+   la clase con click en pantallas táctiles.
+   ========================================================= */
+function initSec08CardFlip() {
+  const cards = document.querySelectorAll('.sec08__card');
+  if (!cards.length) return;
+
+  cards.forEach((card) => {
+    card.addEventListener('mouseenter', () => card.classList.add('is-flipped'));
+    card.addEventListener('mouseleave', () => card.classList.remove('is-flipped'));
+
+    // soporte táctil: tocar alterna el flip; tocar afuera lo cierra
+    card.addEventListener('click', (e) => {
+      if (!window.matchMedia('(hover: hover)').matches) {
+        e.preventDefault();
+        const wasFlipped = card.classList.contains('is-flipped');
+        cards.forEach((c) => c.classList.remove('is-flipped'));
+        if (!wasFlipped) card.classList.add('is-flipped');
+      }
+    });
+  });
+}

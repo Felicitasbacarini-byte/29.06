@@ -2564,7 +2564,9 @@ img {
   width: fit-content !important;
   min-width: 190px !important;
   max-width: 240px !important;
-  align-self: flex-start !important;
+  align-self: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
   padding: 14px 30px !important;
 }
 
@@ -2768,7 +2770,8 @@ img {
   transition: transform 0.75s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-.sec08__card:hover .sec08__card-inner {
+.sec08__card:hover .sec08__card-inner,
+.sec08__card.is-flipped .sec08__card-inner {
   transform: rotateY(180deg);
 }
 
@@ -2799,7 +2802,7 @@ img {
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: grayscale(0.8) contrast(1.12) brightness(0.8);
+  filter: contrast(1.05) brightness(0.96);
   transform: scale(1.02);
   transition: transform 0.75s cubic-bezier(0.65, 0, 0.35, 1),
               filter 0.75s cubic-bezier(0.65, 0, 0.35, 1);
@@ -2807,7 +2810,7 @@ img {
 
 .sec08__card:hover .sec08__img {
   transform: scale(1.08);
-  filter: grayscale(0.15) contrast(1.08) brightness(0.9);
+  filter: contrast(1.08) brightness(1.02);
 }
 
 /* Dorso de la card */
