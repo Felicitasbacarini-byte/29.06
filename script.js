@@ -445,4 +445,3 @@ function initSec08HorizontalGallery() {
 }
 
 document.addEventListener('DOMContentLoaded', initSec08HorizontalGallery);
-

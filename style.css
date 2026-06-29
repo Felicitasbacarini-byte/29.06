@@ -2605,6 +2605,7 @@ img {
 
 /* =========================================================
    SECCIÓN 08 — CIRCUITOS / GALERÍA HORIZONTAL
+   Disposición tipo collage: imágenes pequeñas, escalonadas y debajo del título.
    ========================================================= */
 
 .sec08 {
@@ -2619,16 +2620,16 @@ img {
   top: 0;
   height: 100vh;
   overflow: hidden;
-  display: flex;
-  align-items: center;
+  display: block;
 }
 
+/* Título fijo arriba a la izquierda, como en la referencia */
 .sec08__intro {
   position: absolute;
   left: var(--container-margin);
-  top: clamp(6rem, 10vw, 9rem);
-  width: min(520px, 36vw);
-  z-index: 4;
+  top: clamp(4.8rem, 8vw, 7rem);
+  width: min(680px, 44vw);
+  z-index: 6;
   pointer-events: none;
 }
 
@@ -2636,7 +2637,7 @@ img {
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  margin-bottom: clamp(2rem, 3vw, 3rem);
+  margin-bottom: clamp(2rem, 3vw, 3.2rem);
 }
 
 .sec08__eyebrow-marker {
@@ -2657,11 +2658,11 @@ img {
 .sec08__title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.2rem, 4vw, 4.8rem);
+  font-size: clamp(2.3rem, 4vw, 4.5rem);
   line-height: 1.03;
   letter-spacing: 0.01em;
   text-transform: uppercase;
-  margin: 0 0 1.6rem;
+  margin: 0;
 }
 
 .sec08__title span {
@@ -2669,51 +2670,94 @@ img {
 }
 
 .sec08__text {
-  max-width: 420px;
-  font-family: var(--font-body);
-  font-size: clamp(0.9rem, 1vw, 1.05rem);
-  line-height: 1.6;
-  color: rgba(255,255,255,0.68);
-  margin: 0;
+  display: none;
 }
 
+/* La galería queda debajo del título, no al mismo nivel */
 .sec08__viewport {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
+  left: 0;
+  right: 0;
+  top: 30vh;
+  bottom: 8vh;
   overflow: hidden;
+  z-index: 3;
 }
 
 .sec08__track {
+  position: relative;
   display: flex;
-  align-items: center;
-  gap: clamp(1.6rem, 2.6vw, 3rem);
-  padding-left: 42vw;
-  padding-right: 12vw;
+  align-items: flex-start;
+  gap: clamp(3.5rem, 7vw, 8rem);
+  padding-left: var(--container-margin);
+  padding-right: 20vw;
+  height: 100%;
   will-change: transform;
   transform: translate3d(0,0,0);
 }
 
+/* Cards más chicas y con tamaños variables */
 .sec08__card {
   position: relative;
-  flex: 0 0 clamp(280px, 31vw, 520px);
-  height: clamp(380px, 58vh, 620px);
+  flex: 0 0 clamp(260px, 27vw, 500px);
+  height: clamp(170px, 24vw, 320px);
   perspective: 1200px;
   cursor: pointer;
 }
 
-.sec08__card:nth-child(2n) {
-  transform: translateY(8vh);
+/* Desfase tipo composición editorial */
+.sec08__card:nth-child(1) {
+  flex-basis: clamp(340px, 36vw, 620px);
+  height: clamp(210px, 27vw, 360px);
+  margin-top: 0;
 }
 
-.sec08__card:nth-child(3n) {
-  transform: translateY(-7vh);
+.sec08__card:nth-child(2) {
+  flex-basis: clamp(260px, 23vw, 410px);
+  height: clamp(270px, 34vw, 520px);
+  margin-top: 12vh;
 }
 
-.sec08__card:nth-child(4n) {
-  flex-basis: clamp(250px, 27vw, 460px);
-  height: clamp(320px, 50vh, 540px);
+.sec08__card:nth-child(3) {
+  flex-basis: clamp(300px, 30vw, 540px);
+  height: clamp(190px, 22vw, 330px);
+  margin-top: -8vh;
+}
+
+.sec08__card:nth-child(4) {
+  flex-basis: clamp(260px, 24vw, 430px);
+  height: clamp(300px, 34vw, 540px);
+  margin-top: 18vh;
+}
+
+.sec08__card:nth-child(5) {
+  flex-basis: clamp(300px, 29vw, 520px);
+  height: clamp(200px, 24vw, 350px);
+  margin-top: 4vh;
+}
+
+.sec08__card:nth-child(6) {
+  flex-basis: clamp(300px, 31vw, 560px);
+  height: clamp(190px, 23vw, 340px);
+  margin-top: -5vh;
+}
+
+.sec08__card:nth-child(7) {
+  flex-basis: clamp(260px, 24vw, 440px);
+  height: clamp(310px, 35vw, 550px);
+  margin-top: 13vh;
+}
+
+.sec08__card:nth-child(8) {
+  flex-basis: clamp(320px, 33vw, 580px);
+  height: clamp(210px, 25vw, 370px);
+  margin-top: 0;
+}
+
+.sec08__card:nth-child(9) {
+  flex-basis: clamp(300px, 30vw, 540px);
+  height: clamp(190px, 23vw, 340px);
+  margin-top: 16vh;
 }
 
 .sec08__card-inner {
@@ -2744,10 +2788,10 @@ img {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.55) 100%),
-    linear-gradient(90deg, rgba(213,255,0,0.18), rgba(0,0,0,0) 35%);
+    linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.58) 100%),
+    linear-gradient(90deg, rgba(213,255,0,0.14), rgba(0,0,0,0) 35%);
   mix-blend-mode: screen;
-  opacity: 0.45;
+  opacity: 0.42;
 }
 
 .sec08__img {
@@ -2755,7 +2799,7 @@ img {
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: grayscale(0.85) contrast(1.12) brightness(0.82);
+  filter: grayscale(0.8) contrast(1.12) brightness(0.8);
   transform: scale(1.02);
   transition: transform 0.75s cubic-bezier(0.65, 0, 0.35, 1),
               filter 0.75s cubic-bezier(0.65, 0, 0.35, 1);
@@ -2763,36 +2807,37 @@ img {
 
 .sec08__card:hover .sec08__img {
   transform: scale(1.08);
-  filter: grayscale(0.2) contrast(1.1) brightness(0.9);
+  filter: grayscale(0.15) contrast(1.08) brightness(0.9);
 }
 
+/* Dorso de la card */
 .sec08__back {
   transform: rotateY(180deg);
-  padding: clamp(1.4rem, 2.2vw, 2.3rem);
+  padding: clamp(1.1rem, 1.8vw, 2rem);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   background:
-    radial-gradient(circle at 18% 16%, rgba(213,255,0,0.18), transparent 26%),
+    radial-gradient(circle at 18% 16%, rgba(213,255,0,0.18), transparent 28%),
     linear-gradient(135deg, #1c1c1c 0%, #080808 100%);
 }
 
 .sec08__back::before {
   content: "";
   position: absolute;
-  inset: 1rem;
+  inset: 0.9rem;
   border: 1px solid rgba(213,255,0,0.28);
   pointer-events: none;
 }
 
 .sec08__number {
   position: absolute;
-  top: clamp(1.3rem, 2vw, 2rem);
-  left: clamp(1.3rem, 2vw, 2rem);
+  top: clamp(1rem, 1.6vw, 1.6rem);
+  left: clamp(1rem, 1.6vw, 1.6rem);
   font-family: var(--font-body);
   font-weight: 800;
   color: var(--color-yellow);
-  font-size: clamp(2.2rem, 4vw, 4.6rem);
+  font-size: clamp(1.9rem, 3.4vw, 4rem);
   line-height: 1;
   opacity: 0.28;
 }
@@ -2800,7 +2845,7 @@ img {
 .sec08__back h3 {
   position: relative;
   font-family: var(--font-display);
-  font-size: clamp(1.9rem, 3vw, 3.4rem);
+  font-size: clamp(1.4rem, 2.4vw, 3rem);
   line-height: 1;
   text-transform: uppercase;
   margin: 0 0 0.5rem;
@@ -2810,19 +2855,19 @@ img {
 .sec08__back p {
   position: relative;
   font-family: var(--font-display);
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-yellow);
-  margin: 0 0 1.4rem;
+  margin: 0 0 1rem;
 }
 
 .sec08__back small {
   position: relative;
-  max-width: 90%;
+  max-width: 92%;
   font-family: var(--font-body);
-  font-size: clamp(0.9rem, 1vw, 1rem);
-  line-height: 1.55;
+  font-size: clamp(0.78rem, 0.9vw, 0.95rem);
+  line-height: 1.5;
   color: rgba(255,255,255,0.72);
 }
 
@@ -2830,13 +2875,14 @@ img {
   position: absolute;
   right: var(--container-margin);
   bottom: clamp(2rem, 4vw, 4rem);
-  z-index: 4;
+  z-index: 6;
   font-family: var(--font-display);
   font-size: 0.8rem;
   letter-spacing: 0.14em;
   color: rgba(255,255,255,0.45);
 }
 
+/* En mobile, se vuelve galería lateral simple */
 @media (max-width: 900px) {
   .sec08 {
     height: auto;
@@ -2869,14 +2915,15 @@ img {
     padding-left: 0;
     padding-right: 2rem;
     transform: none !important;
+    gap: 1.2rem;
   }
 
   .sec08__card,
-  .sec08__card:nth-child(2n),
-  .sec08__card:nth-child(3n) {
+  .sec08__card:nth-child(n) {
+    margin-top: 0;
     transform: none;
     flex-basis: 78vw;
-    height: 440px;
+    height: 420px;
   }
 
   .sec08__hint {
