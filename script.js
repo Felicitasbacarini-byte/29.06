@@ -413,3 +413,36 @@ function initSec07Wheel() {
 
   update();
 }
+
+
+/* =========================================================
+   SECCIÓN 08 — Scroll horizontal de circuitos
+   ========================================================= */
+function initSec08HorizontalGallery() {
+  const section = document.querySelector('.sec08');
+  const sticky = document.querySelector('.sec08__sticky');
+  const track = document.querySelector('[data-circuit-track]');
+
+  if (!section || !sticky || !track) return;
+
+  const update = () => {
+    if (window.innerWidth <= 900) {
+      track.style.transform = 'none';
+      return;
+    }
+
+    const sectionRect = section.getBoundingClientRect();
+    const scrollable = section.offsetHeight - window.innerHeight;
+    const progress = Math.min(Math.max(-sectionRect.top / scrollable, 0), 1);
+    const maxMove = track.scrollWidth - window.innerWidth + window.innerWidth * 0.12;
+
+    track.style.transform = `translate3d(${-maxMove * progress}px, 0, 0)`;
+  };
+
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+}
+
+document.addEventListener('DOMContentLoaded', initSec08HorizontalGallery);
+
