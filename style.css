@@ -2463,3 +2463,151 @@ img {
   object-position: center !important;
   filter: grayscale(1) contrast(1.1) brightness(0.9) !important;
 }
+
+
+/* =========================================================
+   AJUSTE FINAL — HERO + CURSOS
+   ========================================================= */
+
+/* HERO: vuelve a encuadrar la imagen sin mandarla hacia arriba */
+.hero {
+  min-height: 88vh;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__bg {
+  background-image: url('hero.png') !important;
+  background-size: cover !important;
+  background-position: center right !important;
+  background-repeat: no-repeat !important;
+  opacity: 1 !important;
+}
+
+/* Oscurece solo la izquierda para leer el título */
+.hero__gradient {
+  background:
+    linear-gradient(90deg,
+      rgba(0,0,0,0.88) 0%,
+      rgba(0,0,0,0.72) 24%,
+      rgba(0,0,0,0.36) 46%,
+      rgba(0,0,0,0.08) 68%,
+      rgba(0,0,0,0) 100%
+    ) !important;
+}
+
+/* Degradado blanco inferior más suave y menos invasivo */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 18%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.18) 42%,
+    rgba(255,255,255,0.64) 76%,
+    #fff 100%
+  );
+}
+
+.hero__content {
+  z-index: 3;
+}
+
+/* PILARES: tratamiento visual coherente */
+.sec03__bg {
+  object-fit: cover !important;
+  object-position: center !important;
+  filter: grayscale(1) contrast(1.1) brightness(0.9) !important;
+}
+
+/* CURSOS: que la sección respire después de tecnología */
+.sec06 {
+  min-height: auto !important;
+  justify-content: flex-start !important;
+  padding-top: clamp(5rem, 8vw, 8rem) !important;
+  padding-bottom: clamp(5rem, 8vw, 8rem) !important;
+}
+
+/* Precios un poco más arriba dentro de las cards */
+.sec06__card {
+  height: clamp(420px, 52vh, 580px) !important;
+}
+
+.sec06__card-bottom {
+  margin-top: -1.1rem !important;
+  gap: 0.8rem !important;
+  padding-top: 1.05rem !important;
+}
+
+/* Números de precio en Inter bold */
+.sec06__card-amount,
+.sec06__card-amount-old {
+  font-family: var(--font-body) !important;
+  font-weight: 800 !important;
+}
+
+/* Fila del descuento: arriba del precio */
+.sec06__discount-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: -0.2rem;
+}
+
+.sec06__card-discount-badge {
+  font-family: var(--font-body) !important;
+  font-weight: 800 !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Botones VER MÁS con tamaño original: no ocupan todo el ancho */
+.btn--card {
+  width: fit-content !important;
+  min-width: 190px !important;
+  max-width: 240px !important;
+  align-self: flex-start !important;
+  padding: 14px 30px !important;
+}
+
+/* El fondo del botón mantiene la forma */
+.btn--card .btn__bg {
+  width: 100% !important;
+}
+
+@media (max-width: 1024px) {
+  .sec06__card {
+    height: auto !important;
+  }
+
+  .btn--card {
+    width: fit-content !important;
+    min-width: 180px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: 82vh;
+  }
+
+  .hero__bg {
+    background-position: 63% center !important;
+  }
+
+  .hero::after {
+    height: 16%;
+  }
+
+  .btn--card {
+    width: 100% !important;
+    max-width: none !important;
+  }
+}
+
