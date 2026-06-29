@@ -3278,17 +3278,17 @@ img {
 }
 
 .detail-hero__bg {
-  background-image: url('assets/advanced-hero.jpg');
+  background-image: url('assets/advanced-hero.png');
   background-size: cover;
   background-position: center right;
-  filter: grayscale(0.15) contrast(1.08) brightness(0.78);
-  opacity: 0.92;
+  filter: grayscale(0.05) contrast(1.08) brightness(0.82);
+  opacity: 0.98;
 }
 
 .detail-hero__shade {
   background:
-    linear-gradient(90deg, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.82) 27%, rgba(0,0,0,0.34) 55%, rgba(0,0,0,0.05) 100%),
-    linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.12) 55%, #000 100%);
+    linear-gradient(90deg, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.76) 30%, rgba(0,0,0,0.25) 58%, rgba(0,0,0,0.03) 100%),
+    linear-gradient(180deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.12) 60%, #000 100%);
 }
 
 .detail-hero__content {
@@ -3536,11 +3536,11 @@ img {
 
 .detail-module span {
   display: block;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(7rem, 14vw, 16rem);
   line-height: 0.82;
   color: var(--color-yellow);
-  font-weight: 400;
+  font-weight: 300;
   letter-spacing: -0.08em;
   margin-bottom: 1.6rem;
 }
@@ -3595,7 +3595,7 @@ img {
   letter-spacing: -0.2em;
 }
 
-.detail-coach__figure img {
+.detail-coach__figure > img {
   display: block;
   width: 100%;
   max-width: 620px;
@@ -3681,6 +3681,158 @@ img {
   letter-spacing: 0.01em;
 }
 
+
+
+/* Loader de 2 segundos antes de entrar al curso Advanced */
+.course-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: grid;
+  place-items: center;
+  background: #050505;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.course-loader.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.course-loader__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  width: min(420px, 78vw);
+}
+
+.course-loader__brand {
+  font-family: var(--font-display);
+  color: #fff;
+  font-size: clamp(2rem, 4vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.course-loader__text {
+  font-family: var(--font-display);
+  color: var(--color-yellow);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.course-loader__bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(255,255,255,0.14);
+  overflow: hidden;
+}
+
+.course-loader__bar span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--color-yellow);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+.course-loader.is-active .course-loader__bar span {
+  animation: courseLoading 2s linear forwards;
+}
+
+@keyframes courseLoading {
+  to { transform: scaleX(1); }
+}
+
+.sec06__card[data-advanced-card] {
+  cursor: pointer;
+}
+
+/* Chips informativos del detalle: hover visual, sin comportamiento clickeable */
+.detail-tags span,
+.detail-live {
+  cursor: default;
+  transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
+}
+
+.detail-tags span:hover,
+.detail-live:hover {
+  background: var(--color-yellow);
+  color: #050505;
+  border-color: var(--color-yellow);
+  transform: translateY(-2px);
+}
+
+.detail-live:hover strong {
+  color: #050505;
+}
+
+/* Slider visual de coaches */
+.detail-coach__figure::after {
+  content: none !important;
+}
+
+.detail-coach__media {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  aspect-ratio: 1 / 1.24;
+  overflow: hidden;
+}
+
+.detail-coach__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  filter: contrast(1.05) brightness(0.95);
+}
+
+.detail-coach__photo.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.detail-coach__arrow {
+  position: absolute;
+  right: -4.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(3rem, 5vw, 5.5rem);
+  height: clamp(3rem, 5vw, 5.5rem);
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.detail-coach__arrow img {
+  width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: pixelated;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.detail-coach__arrow:hover img {
+  transform: translateX(8px);
+  opacity: 0.82;
+}
+
 @media (max-width: 980px) {
   .detail-hero {
     min-height: 620px;
@@ -3708,6 +3860,13 @@ img {
 
   .detail-coach__figure::after {
     right: 0.5rem;
+  }
+
+  .detail-coach__arrow {
+    right: 0.75rem;
+    top: auto;
+    bottom: 1rem;
+    transform: none;
   }
 }
 
@@ -3752,5 +3911,16 @@ img {
 
   .detail-coach__figure::after {
     display: none;
+  }
+
+  .detail-coach__media {
+    aspect-ratio: 1 / 1.32;
+  }
+
+  .detail-coach__arrow {
+    right: 0.6rem;
+    bottom: 0.8rem;
+    width: 3.2rem;
+    height: 3.2rem;
   }
 }

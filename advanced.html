@@ -72,11 +72,11 @@
 
         <aside class="detail-learn__right">
           <span class="detail-mini-title">DETALLES DEL CURSO</span>
-          <div class="detail-tags">
+          <div class="detail-tags" aria-label="Detalles del curso">
             <span>Nivel: Élite</span>
             <span>Duración: 12 semanas</span>
           </div>
-          <div class="detail-live"><strong>• EN VIVO</strong> 2 clase por semana</div>
+          <div class="detail-live" aria-label="Modalidad del curso"><strong>• EN VIVO</strong> 2 clases por semana</div>
           <span class="detail-mini-title detail-mini-title--mt">AL FINALIZAR, PODRÁS:</span>
           <ul class="detail-result-list">
             <li>Interpretar telemetría para frenadas, aceleraciones y trazadas.</li>
@@ -134,9 +134,15 @@
           <p>Su trabajo no es solo decir dónde frenás tarde o dónde perdés velocidad, sino ayudarte a tomar decisiones: <strong>cómo encarar una curva, cuándo acelerar, cómo mantener la consistencia y cómo transformar los datos en rendimiento real.</strong></p>
           <p>Con un seguimiento personalizado, te guía para que cada sesión tenga un objetivo claro y puedas evolucionar con método, precisión y confianza.</p>
         </div>
-        <figure class="detail-coach__figure">
-          <img src="assets/advanced-coach.jpg" alt="Coach del programa Advanced">
-          <figcaption>FACUNDO ÁLVAREZ</figcaption>
+        <figure class="detail-coach__figure" data-coach-slider>
+          <div class="detail-coach__media">
+            <img src="assets/coach-mujer.png" alt="Coach del programa Advanced" class="detail-coach__photo is-active" data-coach-photo>
+            <img src="assets/coach-hombre.png" alt="Coach del programa Advanced" class="detail-coach__photo" data-coach-photo>
+          </div>
+          <button type="button" class="detail-coach__arrow" data-coach-next aria-label="Ver siguiente coach">
+            <img src="assets/arrow-turquoise.png" alt="" aria-hidden="true">
+          </button>
+          <figcaption data-coach-caption>MARTINA RIVERA</figcaption>
         </figure>
       </div>
     </section>

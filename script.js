@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initSec07Wheel();
   initSec08HorizontalGallery();
   initSec08CardFlip();
+  initCourseLoader();
+  initAdvancedCoachSlider();
 });
 
 /* ====================================================================
@@ -492,4 +494,74 @@ function initSec08CardFlip() {
       }
     });
   });
+}
+
+/* ====================================================================
+   LOADER — Click en curso Advanced
+   Muestra una pantalla de carga durante 2 segundos antes de entrar a
+   advanced.html. Funciona al tocar el botón o la tarjeta completa.
+   ==================================================================== */
+function initCourseLoader() {
+  const loader = document.querySelector('[data-course-loader]');
+  const targets = document.querySelectorAll('[data-advanced-link], [data-advanced-card]');
+  if (!loader || !targets.length) return;
+
+  const goToAdvanced = (event) => {
+    const target = event.target.closest('[data-advanced-link], [data-advanced-card]');
+    if (!target) return;
+
+    event.preventDefault();
+    loader.setAttribute('aria-hidden', 'false');
+    loader.classList.add('is-active');
+
+    window.setTimeout(() => {
+      window.location.href = 'advanced.html';
+    }, 2000);
+  };
+
+  document.addEventListener('click', goToAdvanced);
+
+  document.addEventListener('keydown', (event) => {
+    const card = event.target.closest('[data-advanced-card]');
+    if (!card) return;
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    goToAdvanced(event);
+  });
+}
+
+/* ====================================================================
+   ADVANCED — Slider de coaches
+   Cambia automáticamente entre dos coaches y también al tocar la flecha.
+   ==================================================================== */
+function initAdvancedCoachSlider() {
+  const slider = document.querySelector('[data-coach-slider]');
+  if (!slider) return;
+
+  const photos = Array.from(slider.querySelectorAll('[data-coach-photo]'));
+  const caption = slider.querySelector('[data-coach-caption]');
+  const nextButton = slider.querySelector('[data-coach-next]');
+  const names = ['MARTINA RIVERA', 'FACUNDO ÁLVAREZ'];
+  let current = 0;
+  let timer = null;
+
+  const show = (index) => {
+    current = (index + photos.length) % photos.length;
+    photos.forEach((photo, photoIndex) => {
+      photo.classList.toggle('is-active', photoIndex === current);
+    });
+    if (caption) caption.textContent = names[current] || '';
+  };
+
+  const next = () => show(current + 1);
+
+  if (nextButton) {
+    nextButton.addEventListener('click', () => {
+      next();
+      if (timer) window.clearInterval(timer);
+      timer = window.setInterval(next, 3800);
+    });
+  }
+
+  timer = window.setInterval(next, 3800);
+  show(0);
 }
