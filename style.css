@@ -2940,3 +2940,305 @@ img {
     display: none;
   }
 }
+
+/* ====================================================================
+   AJUSTE FINAL — CURSOS: botones alineados
+   ==================================================================== */
+
+.sec06__card {
+  display: grid !important;
+  grid-template-rows: 1fr auto;
+}
+
+.sec06__card-top {
+  min-height: 0;
+}
+
+.sec06__card-bottom {
+  margin-top: auto !important;
+  display: grid !important;
+  grid-template-rows: 30px auto auto;
+  align-content: end;
+  gap: clamp(0.65rem, 1vw, 1rem) !important;
+}
+
+.sec06__discount-row {
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.sec06__discount-row--empty {
+  visibility: hidden;
+}
+
+.sec06__card-price {
+  min-height: 42px;
+  align-items: baseline;
+}
+
+.btn--card {
+  align-self: end;
+}
+
+@media (max-width: 1024px) {
+  .sec06__card {
+    display: flex !important;
+  }
+
+  .sec06__card-bottom {
+    display: flex !important;
+  }
+}
+
+/* ====================================================================
+   SECCIÓN FINAL — CTA + FOOTER
+   Referencia: diseño DG3 TP2-03.
+   ==================================================================== */
+
+.footer-cta {
+  width: 100%;
+  min-height: clamp(310px, 22.4vw, 430px);
+  background: #ffffff;
+  color: var(--color-dark-text);
+  display: flex;
+  align-items: stretch;
+}
+
+.footer-cta__inner {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 3rem;
+  padding: clamp(86px, 6.9vw, 132px) 9.6vw 0;
+}
+
+.footer-cta__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(2.2rem, 3.12vw, 3.7rem);
+  line-height: 1.08;
+  letter-spacing: 0.015em;
+  color: var(--color-dark-text);
+  margin: 0;
+}
+
+.footer-cta__title span {
+  display: block;
+  white-space: nowrap;
+}
+
+.btn--footer-cta {
+  width: clamp(260px, 18.9vw, 360px);
+  height: clamp(74px, 5.08vw, 98px);
+  padding: 0 clamp(28px, 2.2vw, 44px);
+  font-size: clamp(1.25rem, 1.75vw, 2.05rem);
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  flex-shrink: 0;
+}
+
+.btn--footer-cta .btn__bg {
+  background: var(--color-teal);
+  clip-path: polygon(
+    5.5% 0%,
+    94.5% 0%,
+    94.5% 16%,
+    100% 16%,
+    100% 84%,
+    94.5% 84%,
+    94.5% 100%,
+    5.5% 100%,
+    5.5% 84%,
+    0% 84%,
+    0% 16%,
+    5.5% 16%
+  );
+}
+
+.site-footer {
+  width: 100%;
+  min-height: clamp(440px, 28.4vw, 560px);
+  background: var(--color-navbar);
+  color: var(--color-white);
+}
+
+.site-footer__inner {
+  min-height: inherit;
+  display: grid;
+  grid-template-columns: minmax(480px, 46vw) minmax(620px, 1fr);
+  column-gap: clamp(3rem, 4vw, 5rem);
+  padding: clamp(72px, 4.35vw, 88px) 9.55vw clamp(60px, 4vw, 82px) 9.75vw;
+  box-sizing: border-box;
+}
+
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.site-footer__logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-footer__logo-img {
+  height: clamp(36px, 2.45vw, 48px);
+  width: auto;
+  image-rendering: pixelated;
+  filter: brightness(0) invert(1);
+}
+
+.site-footer__claim {
+  margin-top: clamp(32px, 2.35vw, 46px);
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 0.95vw, 1.1rem);
+  line-height: 1.28;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.site-footer__social {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 1.4vw, 28px);
+  margin-top: clamp(24px, 1.75vw, 34px);
+}
+
+.site-footer__social-link {
+  display: inline-flex;
+  width: clamp(31px, 2.1vw, 42px);
+  height: clamp(31px, 2.1vw, 42px);
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  cursor: none;
+  transition: transform 0.25s var(--ease-apex), color 0.25s var(--ease-apex);
+}
+
+.site-footer__social-link svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.site-footer__social-link:hover {
+  color: var(--color-yellow);
+  transform: translateY(-2px);
+}
+
+.site-footer__legal-small {
+  margin-top: clamp(28px, 1.95vw, 40px);
+  font-family: var(--font-body);
+  font-size: clamp(0.68rem, 0.68vw, 0.82rem);
+  line-height: 1.23;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.site-footer__nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(3rem, 4.6vw, 6.5rem);
+  align-items: start;
+}
+
+.site-footer__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.site-footer__col h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(1.45rem, 1.65vw, 2.1rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  margin: 0 0 clamp(26px, 1.65vw, 34px);
+  color: var(--color-white);
+}
+
+.site-footer__col a {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.03vw, 1.25rem);
+  line-height: 1;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.73);
+  margin-bottom: clamp(22px, 1.45vw, 30px);
+  cursor: none;
+  transition: color 0.25s var(--ease-apex), transform 0.25s var(--ease-apex);
+}
+
+.site-footer__col a:hover {
+  color: var(--color-yellow);
+  transform: translateX(4px);
+}
+
+@media (max-width: 1120px) {
+  .footer-cta__inner {
+    padding-left: var(--container-margin);
+    padding-right: var(--container-margin);
+  }
+
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+    row-gap: 4rem;
+    padding-left: var(--container-margin);
+    padding-right: var(--container-margin);
+  }
+
+  .site-footer__nav {
+    max-width: 760px;
+  }
+}
+
+@media (max-width: 760px) {
+  .footer-cta {
+    min-height: auto;
+  }
+
+  .footer-cta__inner {
+    flex-direction: column;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .footer-cta__title span {
+    white-space: normal;
+  }
+
+  .btn--footer-cta {
+    width: min(100%, 340px);
+  }
+
+  .site-footer__inner {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .site-footer__nav {
+    grid-template-columns: 1fr;
+    gap: 2.6rem;
+  }
+
+  .site-footer__claim br,
+  .site-footer__legal-small br {
+    display: none;
+  }
+}
+
+@media (hover: none) {
+  .site-footer__social-link,
+  .site-footer__col a {
+    cursor: auto;
+  }
+}
+
