@@ -3945,3 +3945,76 @@ body.is-page-transitioning {
     height: 3.2rem;
   }
 }
+
+/* =========================================================
+   AJUSTE GENERAL — MÁRGENES VERTICALES DE SECCIONES
+   Mantiene un mismo aire arriba y abajo en toda la landing,
+   sin dejar espacios excesivos ni secciones demasiado apretadas.
+   ========================================================= */
+:root {
+  --section-y: clamp(3.8rem, 4.7vw, 5.4rem);
+  --section-y-mobile: clamp(3.1rem, 10vw, 4.2rem);
+}
+
+.sec02,
+.sec04,
+.sec05,
+.sec03,
+.sec06,
+.footer-cta,
+.detail-section {
+  padding-top: var(--section-y) !important;
+  padding-bottom: var(--section-y) !important;
+}
+
+.sec07__header {
+  padding-top: var(--section-y) !important;
+  padding-bottom: var(--section-y) !important;
+}
+
+/* La galería horizontal usa sticky, por eso el “aire” se regula desde
+   sus elementos internos para no romper el scroll lateral. */
+.sec08__intro {
+  top: var(--section-y) !important;
+}
+
+.sec08__viewport {
+  top: calc(var(--section-y) + 28vh) !important;
+  bottom: var(--section-y) !important;
+}
+
+.sec08__hint {
+  bottom: calc(var(--section-y) * 0.55) !important;
+}
+
+/* Al entrar por links del navbar, el título no queda tapado. */
+.sec02,
+.sec04,
+.sec05,
+.sec03,
+.sec07,
+.sec06,
+.sec08,
+.footer-cta,
+.detail-section {
+  scroll-margin-top: var(--navbar-height);
+}
+
+@media (max-width: 900px) {
+  .sec02,
+  .sec04,
+  .sec05,
+  .sec03,
+  .sec06,
+  .sec08,
+  .footer-cta,
+  .detail-section {
+    padding-top: var(--section-y-mobile) !important;
+    padding-bottom: var(--section-y-mobile) !important;
+  }
+
+  .sec07__header {
+    padding-top: var(--section-y-mobile) !important;
+    padding-bottom: var(--section-y-mobile) !important;
+  }
+}
